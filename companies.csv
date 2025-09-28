@@ -1,0 +1,7 @@
+company_id,name,domain,industry,annualrevenue,employees,city,country,lifecyclestage
+2001,Lufthansa Group,lufthansa.com,Aviation,35000000000,96000,Frankfurt,DE,customer
+2002,Airbus,airbus.com,Aerospace,71000000000,134000,Toulouse,FR,opportunity
+2003,KLM,klm.com,Aviation,12000000000,33000,Amstelveen,NL,lead
+2004,Siemens,siemens.com,Industrial,77000000000,320000,Munich,DE,opportunity
+2005,DHL,dhl.com,Logistics,24000000000,57000,Bonn,DE,customer
+2006,BMW,bmw.com,Automotive,150000000000,149000,Munich,DE,lead
