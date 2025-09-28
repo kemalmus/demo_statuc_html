@@ -3,7 +3,7 @@
   "timeframe": "month",
   "kpis": [
     { "id": "pipeline_created", "label": "Pipeline Created", "value": "$250k", "delta": "+15k" },
-    { id": "coverage", "label": "Coverage", "value": "2.5x", "delta": "+0.3" },
+    { "id": "coverage", "label": "Coverage", "value": "2.5x", "delta": "+0.3" },
     { "id": "new_mqls", "label": "New MQLs", "value": "42", "delta": "+8" }
   ],
   "signals": [
