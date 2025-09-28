@@ -16,7 +16,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
 <img id="tags_bar" alt="Tags chart" style="max-width:100%;border:1px solid #eee;border-radius:8px">
 <img id="pipeline_stage" alt="Pipeline by stage" style="max-width:100%;border:1px solid #eee;border-radius:8px">
 <script>
-const JSON_URL = 'https://raw.githubusercontent.com/<you>/<repo>/main/docs/data/pulse.json';
+const JSON_URL = 'https://raw.githubusercontent.com/kemalmus/demo_statuc_html/main/docs/data/pulse.json';
 fetch(JSON_URL, {cache:'no-store'}).then(r=>r.json()).then(DATA=>{
   document.getElementById('stamp').textContent = 'Updated: ' + new Date().toISOString();
   const k = document.getElementById('kpis');
