@@ -1,1 +1,11 @@
-{"sentinel":"PROVE-ME","timeframe":"week","kpis":[],"signals":[],"crm":[],"chart_images":{}}
+{
+  "sentinel": "TEMP-UPDATE",
+  "timeframe": "month",
+  "kpis": ["Activity1", "Activity2"],
+  "signals": ["Signal1", "Signal2"],
+  "crm": ["Crm1", "Crm2"],
+  "chart_images": {
+    "img1": "https://example.com/img1.png",
+    "img2": "https://example.com/img2.png"
+  }
+}
