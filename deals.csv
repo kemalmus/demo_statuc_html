@@ -1,0 +1,7 @@
+deal_id,dealname,amount,currency,pipeline,dealstage,company_id,owner,createdate,closedate,hs_lastactivitydate
+5001,Ops Analytics Suite,420000,EUR,Sales Pipeline,presentationscheduled,2001,A.Novak,2025-08-15,,2025-09-22
+5002,Data Platform Pilot,120000,EUR,Sales Pipeline,qualifiedtobuy,2004,S.Kowalski,2025-09-02,,2025-09-20
+5003,Fleet Safety Module,230000,EUR,Sales Pipeline,deciderboughtin,2003,M.Weber,2025-07-18,,2025-09-25
+5004,Warehouse AI Retrofit,310000,EUR,Sales Pipeline,contractsent,2005,J.Smith,2025-08-30,,2025-09-18
+5005,Customer 360 Upgrade,680000,EUR,Sales Pipeline,appointmentscheduled,2002,A.Novak,2025-09-10,,2025-09-23
+5006,Predictive Maintenance,950000,EUR,Enterprise Pipeline,closedwon,2006,S.Kowalski,2025-06-01,2025-09-08,2025-09-08
