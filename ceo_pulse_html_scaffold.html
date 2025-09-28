@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CEO GTM Pulse – {{ENTITY_OR_PORTFOLIO}}</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:24px} header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px} .card{border:1px solid #e2e2e2;border-radius:10px;padding:14px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px} .kpi{border:1px solid #eee;border-radius:8px;padding:10px}
+.kpi .val{font-size:22px;font-weight:700} .muted{color:#666} table{width:100%;border-collapse:collapse}
+th,td{padding:8px;border-bottom:1px solid #eee;font-size:14px} .tag{font-size:11px;border:1px solid #ddd;border-radius:6px;padding:2px 6px;margin-right:6px}
+pre{white-space:pre-wrap;background:#fafafa;border:1px solid #eee;padding:10px;border-radius:8px}
+</style></head><body>
+<header>
+  <div>
+    <h1 style="margin:0">CEO GTM Pulse</h1>
+    <div class="muted">Timeframe: {{TIMEFRAME}} • Updated: <span id="updated"></span></div>
+  </div>
+  <div><button id="toggleRaw">Toggle Raw</button></div>
+</header>
+
+<section class="kpis" id="kpis"></section>
+
+<div class="grid">
+  <section class="card">
+    <h3 style="margin-top:0">External Signals</h3>
+    <table id="signals"><thead><tr>
+      <th>Date</th><th>Title</th><th>Tags</th><th>Score</th><th>Source</th></tr></thead><tbody></tbody></table>
+  </section>
+  <aside class="card">
+    <h3 style="margin-top:0">Charts</h3>
+    <img id="tags_bar" alt="Tags chart" style="width:100%;height:auto;border:1px solid #eee;border-radius:8px"/>
+    <div class="muted" style="margin:8px 0">Static images generated offline.</div>
+    <img id="pipeline_stage" alt="Pipeline by stage" style="width:100%;height:auto;border:1px solid #eee;border-radius:8px"/>
+    <h3>Export</h3>
+    <ul class="muted"><li>Type <code>EXPORT_WEBHOOK</code> to POST this JSON to the webhook.</li></ul>
+  </aside>
+</div>
+
+<section class="card" style="margin-top:16px;display:none" id="rawWrap">
+  <h3 style="margin-top:0">Raw JSON</h3><pre id="raw"></pre>
+</section>
+
+<script>
+const DATA = {{DATA_JSON}};
+document.getElementById('updated').textContent = new Date().toISOString();
+
+const kpisEl = document.getElementById('kpis');
+(DATA.kpis||[]).forEach(k=>{
+  const d=document.createElement('div');d.className='kpi';
+  const delta = (k.delta===undefined||k.delta===null)?'':` <span class="muted">(${k.delta>=0?'+':''}${k.delta})</span>`;
+  d.innerHTML = `<div class="label">${k.label}</div><div class="val">${k.value}${delta}</div>`;
+  kpisEl.appendChild(d);
+});
+
+const tbody = document.querySelector('#signals tbody');
+(DATA.signals||[]).forEach(s=>{
+  const tr=document.createElement('tr');
+  const tags=(s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  tr.innerHTML = `<td>${s.date||''}</td><td><a href="${s.url}" target="_blank" rel="noopener">${s.title||''}</a></td>
+                  <td>${tags}</td><td>${(s.score??'').toString().slice(0,5)}</td><td>${s.source||''}</td>`;
+  tbody.appendChild(tr);
+});
+
+document.getElementById('tags_bar').src = (DATA.chart_images||{}).tags_bar || '';
+document.getElementById('pipeline_stage').src = (DATA.chart_images||{}).pipeline_stage || '';
+
+const rawWrap=document.getElementById('rawWrap'); const rawEl=document.getElementById('raw');
+document.getElementById('toggleRaw').onclick=()=>{
+  const show = rawWrap.style.display==='none'; rawWrap.style.display = show?'block':'none';
+  if(show) rawEl.textContent = JSON.stringify(DATA,null,2);
+};
+</script></body></html>
