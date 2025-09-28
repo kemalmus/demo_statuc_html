@@ -1,0 +1,6 @@
+activity_id,type,date,contact_id,outcome,note,deal_id,owner
+7001,call,2025-09-18,9001,completed,Discussed pilot scope,5001,A.Novak
+7002,email,2025-09-21,9005,reply,Sent case studies,5006,S.Kowalski
+7003,meeting,2025-09-12,9004,completed,Safety module fit,5004,J.Smith
+7004,email,2025-09-25,9002,open,Shared proposal,5005,A.Novak
+7005,call,2025-09-26,9003,completed,Security checklist,5003,M.Weber
