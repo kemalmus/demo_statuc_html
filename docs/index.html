@@ -17,24 +17,40 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
 <img id="pipeline_stage" alt="Pipeline by stage" style="max-width:100%;border:1px solid #eee;border-radius:8px">
 <script>
 const JSON_URL = 'https://raw.githubusercontent.com/kemalmus/demo_statuc_html/main/docs/data/pulse.json';
-fetch(JSON_URL, {cache:'no-store'}).then(r=>r.json()).then(DATA=>{
-  document.getElementById('stamp').textContent = 'Updated: ' + new Date().toISOString();
-  const k = document.getElementById('kpis');
-  (DATA.kpis||[]).forEach(x=>{
-    const d=document.createElement('div'); d.className='kpi';
-    const delta=(x.delta==null)?'':` <span class="muted">(${x.delta>=0?'+':''}${x.delta})</span>`;
-    d.innerHTML = `<div>${x.label}</div><div class="val">${x.value}${delta}</div>`;
-    k.appendChild(d);
-  });
-  const tb = document.querySelector('#signals tbody');
-  (DATA.signals||[]).forEach(s=>{
-    const tr=document.createElement('tr');
-    const tags=(s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
-    tr.innerHTML = `<td>${s.date||''}</td><td><a href="${s.url}" target="_blank" rel="noopener">${s.title||''}</a></td>
-                    <td>${tags}</td><td>${(s.score??'').toString().slice(0,5)}</td><td>${s.source||''}</td>`;
-    tb.appendChild(tr);
-  });
-  document.getElementById('tags_bar').src = (DATA.chart_images||{}).tags_bar || '';
-  document.getElementById('pipeline_stage').src = (DATA.chart_images||{}).pipeline_stage || '';
-});
-</script></body></html>
+async function load() {
+  try {
+    const r = await fetch(JSON_URL, {cache:'no-store'});
+    if (!r.ok) throw new Error('HTTP '+r.status);
+    const DATA = await r.json();
+    document.getElementById('stamp').textContent = 'Updated: ' + new Date().toISOString();
+
+    const k = document.getElementById('kpis');
+    (DATA.kpis||[]).forEach(x=>{
+      const d=document.createElement('div'); d.className='kpi';
+      const delta=(x.delta==null)?'':` <span class="muted">(${x.delta>=0?'+':''}${x.delta})</span>`;
+      d.innerHTML = `<div>${x.label}</div><div class="val">${x.value}${delta}</div>`;
+      k.appendChild(d);
+    });
+
+    const tb = document.querySelector('#signals tbody');
+    (DATA.signals||[]).forEach(s=>{
+      const tags=(s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+      const tr=document.createElement('tr');
+      tr.innerHTML = `<td>${s.date||''}</td>
+                      <td><a href="${s.url}" target="_blank" rel="noopener">${s.title||''}</a></td>
+                      <td>${tags}</td>
+                      <td>${(s.score??'').toString().slice(0,5)}</td>
+                      <td>${s.source||''}</td>`;
+      tb.appendChild(tr);
+    });
+
+    document.getElementById('tags_bar').src = (DATA.chart_images||{}).tags_bar || '';
+    document.getElementById('pipeline_stage').src = (DATA.chart_images||{}).pipeline_stage || '';
+  } catch(e) {
+    document.getElementById('stamp').textContent = 'No data yet or fetch failed.';
+    console.error(e);
+  }
+}
+load();
+</script>
+</body></html>
