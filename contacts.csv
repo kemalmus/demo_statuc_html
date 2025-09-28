@@ -1,0 +1,6 @@
+contact_id,email,firstname,lastname,jobtitle,company_id,lifecyclestage,owner
+9001,anna.mueller@lufthansa.com,Anna,Mueller,Head of Procurement,2001,customer,A.Novak
+9002,jean.dupont@airbus.com,Jean,Dupont,VP Engineering,2002,opportunity,A.Novak
+9003,eline.van.dijk@klm.com,Eline,van Dijk,IT Director,2003,lead,M.Weber
+9004,markus.hahn@dhl.com,Markus,Hahn,Ops Manager,2005,customer,J.Smith
+9005,lara.schmidt@bmw.com,Lara,Schmidt,Plant Lead,2006,lead,S.Kowalski
