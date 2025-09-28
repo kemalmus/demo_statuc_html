@@ -1,0 +1,40 @@
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEO GTM Pulse (Live)</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:24px} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi{border:1px solid #eee;border-radius:8px;padding:10px}.kpi .val{font-size:22px;font-weight:700}
+table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #eee;font-size:14px}
+.tag{font-size:11px;border:1px solid #ddd;border-radius:6px;padding:2px 6px;margin-right:6px} .muted{color:#666}
+</style></head><body>
+<h1>CEO GTM Pulse</h1>
+<div class="muted" id="stamp"></div>
+<section class="kpis" id="kpis"></section>
+<h3>External Signals</h3>
+<table id="signals"><thead><tr><th>Date</th><th>Title</th><th>Tags</th><th>Score</th><th>Source</th></tr></thead><tbody></tbody></table>
+<h3>Charts</h3>
+<img id="tags_bar" alt="Tags chart" style="max-width:100%;border:1px solid #eee;border-radius:8px">
+<img id="pipeline_stage" alt="Pipeline by stage" style="max-width:100%;border:1px solid #eee;border-radius:8px">
+<script>
+const JSON_URL = 'https://raw.githubusercontent.com/<you>/<repo>/main/docs/data/pulse.json';
+fetch(JSON_URL, {cache:'no-store'}).then(r=>r.json()).then(DATA=>{
+  document.getElementById('stamp').textContent = 'Updated: ' + new Date().toISOString();
+  const k = document.getElementById('kpis');
+  (DATA.kpis||[]).forEach(x=>{
+    const d=document.createElement('div'); d.className='kpi';
+    const delta=(x.delta==null)?'':` <span class="muted">(${x.delta>=0?'+':''}${x.delta})</span>`;
+    d.innerHTML = `<div>${x.label}</div><div class="val">${x.value}${delta}</div>`;
+    k.appendChild(d);
+  });
+  const tb = document.querySelector('#signals tbody');
+  (DATA.signals||[]).forEach(s=>{
+    const tr=document.createElement('tr');
+    const tags=(s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+    tr.innerHTML = `<td>${s.date||''}</td><td><a href="${s.url}" target="_blank" rel="noopener">${s.title||''}</a></td>
+                    <td>${tags}</td><td>${(s.score??'').toString().slice(0,5)}</td><td>${s.source||''}</td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById('tags_bar').src = (DATA.chart_images||{}).tags_bar || '';
+  document.getElementById('pipeline_stage').src = (DATA.chart_images||{}).pipeline_stage || '';
+});
+</script></body></html>
