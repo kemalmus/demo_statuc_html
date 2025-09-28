@@ -1,7 +1,1 @@
-{
-  "timeframe": "week",
-  "kpis": [{"id":"pipeline_created","label":"Pipeline Created (wk)","value":123000}],
-  "signals": [{"date":"2025-09-27","title":"Test item","url":"https://example.com","tags":["test"],"score":0.9,"source":"example.com"}],
-  "crm": [],
-  "chart_images": {}
-}
+{"sentinel":"PROVE-ME","timeframe":"week","kpis":[],"signals":[],"crm":[],"chart_images":{}}
