@@ -1,3 +1,4 @@
 {
-  "sample": "updated content"
- }
+  "sample": "updated content",
+  "greeting": "ciao!"
+}
